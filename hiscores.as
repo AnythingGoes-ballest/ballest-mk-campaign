@@ -15,6 +15,10 @@
 //     Runs::Replay: the game writes no ghost file for a local map, measured), kept with your best on the server.
 //     Clicking a row of the in-race board races that player's best as a ghost (GET /replay, Ghosts::ReplayBall placed
 //     at the race's clock every frame); clicking it again takes it away.
+//   * Online splits: the checkpoint deltas under the race timer compare against your ONLINE best on the course
+//     (Race::SetSplitReference), not the game's local record. Your online best's splits and time are kept in Storage
+//     ("hiscores:best:<course>": "<total>|<split>,<split>,...") so they work offline and before /best answers;
+//     fetched on sign-in and on each course, and replaced when a new online best is taken. No online best: no deltas.
 // The local best (main.as, Storage) is kept as before: it works offline too.
 
 const string kServer = "https://ballest-mk-hiscores.anythinggoes87654321.workers.dev";
@@ -197,6 +201,12 @@ bool Finished(Job@ j)
             b.total = int(Json::Number(body, "total"));
             Log::Info("hiscores: " + j.track + " sent" + (Json::Bool(body, "improved") ? ", a new online best" : "") + ": #" + b.myRank + " of " + b.total +
                       (Json::Bool(body, "test") ? " (test board)" : ""));
+            if (Json::Bool(body, "improved")) {
+                array<double> splits;
+                int n = Json::Count(j.body, "splits");
+                for (int i = 0; i < n; i++) splits.insertLast(Json::Number(j.body, "splits." + i) / 1000.0);
+                CacheBest(j.track, Json::Number(j.body, "timeMs") / 1000.0, splits);
+            }
             Enqueue("top", j.track);
         } else {
             Log::Warn("hiscores: " + j.track + " run not taken: " + Json::String(body, "error", "HTTP " + status));
@@ -244,13 +254,18 @@ bool Finished(Job@ j)
         if (hsSteamId == "") hsSteamId = Steam::OwnId();
         if (hsSteamId != "") Enqueue("best", j.track);
     } else if (j.kind == "best") {
+        array<double> splits;
         if (Json::Has(body, "entry.rank")) {
             b.myRank = int(Json::Number(body, "entry.rank"));
             b.myTime = Json::Number(body, "entry.timeMs") / 1000.0;
             b.myReplay = Json::Bool(body, "entry.hasReplay");
+            int n = Json::Count(body, "entry.splits");
+            for (int i = 0; i < n; i++) splits.insertLast(Json::Number(body, "entry.splits." + i) / 1000.0);
+            CacheBest(j.track, b.myTime, splits);
         } else {
             b.myRank = 0;
             b.myTime = -1;
+            CacheBest(j.track, -1, splits);
         }
         b.total = int(Json::Number(body, "total"));
     }
@@ -303,6 +318,40 @@ void LoadPending()
     }
 }
 
+// --- online splits ----------------------------------------------------------------------------------------------------
+
+string splitsShown = "<none>";       // the reference handed to the host now (its Storage text); never matches at first
+string splitsTrack = "";
+
+void CacheBest(const string &in track, double total, const array<double> &in splits)
+{
+    string s = formatFloat(total, "", 0, 3) + "|";
+    for (uint i = 0; i < splits.length(); i++) s += (i > 0 ? "," : "") + formatFloat(splits[i], "", 0, 3);
+    if (total <= 0) s = "";
+    if (Storage::Get("hiscores:best:" + track, "") != s) {
+        Storage::Set("hiscores:best:" + track, s);
+        Log::Info("hiscores: online splits for " + track + (s == "" ? " cleared (no online best)" : " cached: " + s));
+    }
+}
+
+// The cached online best of a course as the split reference while it is raced (an empty one: no deltas).
+void FeedSplits(const string &in track)
+{
+    string s = Storage::Get("hiscores:best:" + track, "");
+    if (Race::TrackKey() + "#" + s == splitsShown) return;     // (the key too: two courses can both have none)
+    splitsShown = Race::TrackKey() + "#" + s;
+    array<double> splits;
+    double total = 0;
+    int bar = s.findFirst("|");
+    if (bar > 0) {
+        total = parseFloat(s.substr(0, bar));
+        array<string>@ parts = s.substr(bar + 1).split(",");
+        for (uint i = 0; i < parts.length(); i++)
+            if (parts[i] != "") splits.insertLast(parseFloat(parts[i]));
+    }
+    Race::SetSplitReference(Race::TrackKey(), splits, total);
+}
+
 // --- what main.as calls ----------------------------------------------------------------------------------------------
 
 void HiscoresStart()
@@ -345,6 +394,12 @@ void HiscoresUpdate(int course, const string &in track)
     PumpJobs();
     if (course >= 0) {
         Board@ b = BoardOf(track);
+        if (track != splitsTrack) {             // a course raced: its online best fetched now (the cache serves till then)
+            splitsTrack = track;
+            if (hsSteamId == "") hsSteamId = Steam::OwnId();
+            if (hsSteamId != "") Enqueue("best", track);
+        }
+        FeedSplits(track);
         if (Host::Time() - b.fetchedAt > 30) {
             b.fetchedAt = Host::Time();
             Enqueue("top", track);
@@ -359,6 +414,11 @@ void HiscoresUpdate(int course, const string &in track)
             hsShownKey = "";
         }
         DropGhostBall();
+        if (splitsShown != "<none>") {
+            Race::ClearSplitReference();
+            splitsShown = "<none>";
+        }
+        splitsTrack = "";
     }
 }
 
@@ -456,6 +516,8 @@ string HiscoresLine(const string &in track)
 void HiscoresDisabled()
 {
     DropGhostBall();
+    Race::ClearSplitReference();
+    splitsShown = "<none>";
     Leaderboard::ClearSource();
     hsShownKey = "";
 }
