@@ -1,0 +1,9 @@
+[meta]
+name = "MK Campaign"
+version = "0.1.0"
+author = "AnythingGoes"
+description = "PRIVATE (never publish, never add to the registry): a Mushroom Cup button on the main menu, a landing page for its four courses, and each course raced as a normal race with local best times and splits."
+min_host = "0.25.0"
+
+[script]
+files = ["main.as"]
