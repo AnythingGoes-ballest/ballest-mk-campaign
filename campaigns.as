@@ -29,6 +29,7 @@ void CampaignStatus(const string &in s)
 // Best times on the cards, the online record under each title, the cup total (or a problem) as the note.
 void CampaignRefresh()
 {
+    RefreshBests();
     double total = 0;
     bool complete = true;
     for (uint i = 0; i < courses.length(); i++) {

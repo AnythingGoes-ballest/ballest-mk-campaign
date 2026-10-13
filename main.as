@@ -70,29 +70,38 @@ string FormatTime(double t)
     return m + ":" + (s < 10 ? "0" : "") + s + "." + (r < 100 ? "0" : "") + (r < 10 ? "0" : "") + r;
 }
 
-void Load()
+// Best times are the player's ONLINE bests (hiscores.as caches them as "hiscores:best:<course>" = "<total>|<splits>"):
+// the cup page, the cup total and the in-race BEST box all show what the online board holds. Older versions kept a
+// local record of their own ("best:<course>", "splits:<course>"); it's cleared once (data version 2).
+double OnlineBest(const string &in name)
 {
-    for (uint i = 0; i < courses.length(); i++) {
-        Course@ c = courses[i];
-        c.best = parseFloat(Storage::Get("best:" + c.name, "-1"));
-        c.splits.resize(0);
-        string s = Storage::Get("splits:" + c.name, "");
-        if (s != "") {
-            array<string>@ parts = s.split(",");
-            for (uint j = 0; j < parts.length(); j++)
-                c.splits.insertLast(parseFloat(parts[j]));
-        }
-    }
+    string s = Storage::Get("hiscores:best:" + name, "");
+    int bar = s.findFirst("|");
+    if (s == "" || bar <= 0)
+        return -1;
+    double t = parseFloat(s.substr(0, bar));
+    return t > 0 ? t : -1;
 }
 
-void Save(Course@ c)
+void RefreshBests()
 {
-    Storage::Set("best:" + c.name, formatFloat(c.best, "", 0, 3));
-    string s = "";
-    for (uint j = 0; j < c.splits.length(); j++)
-        s += (j > 0 ? "," : "") + formatFloat(c.splits[j], "", 0, 3);
-    Storage::Set("splits:" + c.name, s);
+    for (uint i = 0; i < courses.length(); i++)
+        courses[i].best = OnlineBest(courses[i].name);
 }
+
+void Load()
+{
+    if (Storage::Get("data:version", "1") != "2") {
+        for (uint i = 0; i < courses.length(); i++) {
+            Storage::Set("best:" + courses[i].name, "");
+            Storage::Set("splits:" + courses[i].name, "");
+        }
+        Storage::Set("data:version", "2");
+        Log::Info("the old local best times are cleared: the cup shows the online bests");
+    }
+    RefreshBests();
+}
+
 
 // --- the landing page ---------------------------------------------------------------------------------------------
 // Mario Kart Wii's cup screens: a deep blue backdrop, the cup's red-and-white mushroom badge, the four courses in
@@ -294,7 +303,8 @@ int CourseOnTrack()
 void TrackRace(float dt, int ci)
 {
     Course@ c = courses[ci];
-    hudBest.text = FormatTime(c.best);
+    c.best = OnlineBest(c.name);                     // the server is the only record
+    hudBest.text = c.best < 0 ? "--:--.---" : FormatTime(c.best);
     int id = Race::RunId();
     if (id >= 0 && id != runId) {            // a new run (the start, or a restart)
         runId = id;
@@ -316,15 +326,7 @@ void TrackRace(float dt, int ci)
         Runs::TrackKey(0) == Race::TrackKey()) {
         handledRun = Runs::Id(0);
         double t = Runs::Time(0);
-        bool record = c.best < 0 || t < c.best;
-        if (record) {
-            c.best = t;
-            c.splits = runSplits;
-            Save(c);
-            Log::Info(c.title + ": new record " + FormatTime(t) + " (" + runSplits.length() + " splits)");
-        } else {
-            Log::Info(c.title + ": finished in " + FormatTime(t) + ", best " + FormatTime(c.best));
-        }
+        Log::Info(c.title + ": finished in " + FormatTime(t) + " (sent to the online board)");
         HiscoresFinished(c.name, t, runSplits);
     }
 }
