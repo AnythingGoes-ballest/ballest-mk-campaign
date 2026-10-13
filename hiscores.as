@@ -15,6 +15,8 @@
 //     Runs::Replay: the game writes no ghost file for a local map, measured), kept with your best on the server.
 //     Clicking a row of the in-race board races that player's best as the game's own leaderboard ghost (GET /replay,
 //     then Leaderboard::SetRowGhost: the game's ghost, the row lit, the race restarted); clicking it again turns it off.
+//     Clicking the row tile itself shows that run in the game's replay mode (Leaderboard::WatchRowReplay), with the
+//     toggled ghosts too, as the game's own board does.
 //   * Online splits: the checkpoint deltas under the race timer compare against your ONLINE best on the course
 //     (Race::SetSplitReference), not the game's local record. Your online best's splits and time are kept in Storage
 //     ("hiscores:best:<course>": "<total>|<split>,<split>,...") so they work offline and before /best answers;
@@ -64,6 +66,7 @@ double hsRetryAt = 0;
 string hsShownKey = "";
 // the ghost raced against: whose, on which course, its replay, its ball
 string ghostTrack = "", ghostId = "", ghostName = "";
+string watchTrack = "", watchId = "";       // a row tile clicked: that run in the game's replay mode, once downloaded
 array<string> replayKeys;           // "<course>|<steam id>" of each replay downloaded this session
 array<string> replayTexts;          // its JSON
 
@@ -225,6 +228,10 @@ bool Finished(Job@ j)
     }
     if (j.kind == "replay") {
         if (status == 200) KeepReplay(j.track + "|" + j.body, body);
+        if (status == 200 && j.track == watchTrack && j.body == watchId) {
+            Log::Info("hiscores: replay of " + j.body + " on " + j.track + " downloaded (" + body.length() + " bytes)");
+            StartWatch();
+        }
         if (status == 200 && j.track == ghostTrack && j.body == ghostId) {
             Log::Info("hiscores: ghost of " + ghostName + " on " + j.track + " downloaded (" + body.length() + " bytes)");
             StartGhost();
@@ -414,8 +421,11 @@ void HiscoresUpdate(int course, const string &in track)
             b.fetchedAt = Host::Time();
             Enqueue("top", track);
         }
-        int row = Leaderboard::ExtraRowClicked();
+        // as the game's own board: the ghost toggle races that ghost, the row tile shows its run in replay mode
+        int row = Leaderboard::ExtraRowGhostClicked();
         if (row >= 0 && row < int(shownIds.length())) PickGhost(track, row, b);
+        row = Leaderboard::ExtraRowClicked();
+        if (row >= 0 && row < int(shownIds.length())) WatchRow(track, row, b);
         ShowBoard(b);
     } else {
         if (hsShownKey != "") {
@@ -454,6 +464,35 @@ void PickGhost(const string &in track, int row, Board@ b)
     if (replayKeys.find(track + "|" + id) >= 0) StartGhost();
     else Enqueue("replay", track, id);
     Log::Info("hiscores: racing the ghost of " + ghostName);
+}
+
+// A row tile clicked: that player's run in the game's replay mode (Leaderboard::WatchRowReplay), with every ghost
+// toggled on still showing; the game's own exit returns to the race.
+void WatchRow(const string &in track, int row, Board@ b)
+{
+    string id = shownIds[row];
+    int i = b.ids.find(id);
+    bool has = i >= 0 ? b.hasReplay[i] : (id == hsSteamId && b.myReplay);
+    if (!has) {
+        Log::Info("hiscores: no replay saved for that run");
+        return;
+    }
+    watchTrack = track;
+    watchId = id;
+    Log::Info("hiscores: watching the replay of " + (i >= 0 ? b.names[i] : "you"));
+    if (replayKeys.find(track + "|" + id) >= 0) StartWatch();
+    else Enqueue("replay", track, id);
+}
+
+void StartWatch()
+{
+    int k = replayKeys.find(watchTrack + "|" + watchId);
+    if (watchId == "" || k < 0) return;
+    string id = watchId;
+    watchId = "";
+    int row = shownIds.find(id);
+    if (row < 0 || CourseOnTrack() < 0 || courses[CourseOnTrack()].name != watchTrack) return;
+    Leaderboard::WatchRowReplay(row, id, replayTexts[k]);
 }
 
 // The chosen ghost's replay handed to the game, for its row as the board shows it now.
