@@ -1,2 +1,2 @@
 # decals for the map 'MK Moo Moo Meadows' (not solid)
-mesh mk_moo_moo_meadows_decals.glb at=-3828.2,-2218.8,-101.4
+mesh mk_moo_moo_meadows_decals.glb at=-3828.2,-2218.8,-5106.7
