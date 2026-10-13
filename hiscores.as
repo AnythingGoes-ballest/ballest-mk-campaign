@@ -394,12 +394,15 @@ void DropGhostBall()
     ghostBall = 0;
 }
 
-// The ghost's ball where its run was at the race's clock (at the start before the race starts or after it ends).
+// The ghost's ball where its run was at the race's clock; before the race starts it plays its run on a loop.
 void RaceGhost(const string &in track)
 {
     if (ghostReplay == "" || ghostTrack != track) return;
     double t = Runs::Elapsed();
-    if (t < 0) t = 0;
+    if (t < 0 || !Race::IsActive()) {               // not racing yet (the race clock starts with the first move): the
+        double len = ghostBall != 0 ? Ghosts::ReplayTime(ghostBall) : 0;    // ghost plays its run on a loop meanwhile
+        t = len > 1 ? Host::Time() - len * Math::floor(Host::Time() / len) : 0;
+    }
     if (ghostBall != 0 && Ghosts::PlaceReplayBall(ghostBall, t)) return;
     ghostBall = 0;
     if (Host::Time() < ghostRetryAt) return;        // a new map's ball, made again (at most once a second)
