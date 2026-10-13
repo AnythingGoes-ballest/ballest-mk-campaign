@@ -11,6 +11,10 @@
 //     pushes); this plugin's own mushroom bounce doesn't count against it. Runs that fail to send are kept and retried.
 //   * The in-race leaderboard shows the online top 10 and your own place in place of the game's (empty) board
 //     (Leaderboard::SetSource for the course's track key); the landing page shows the record and your place per course.
+//   * Ghosts: a run that beats your online best is sent with its replay (the host's own recording of the run,
+//     Runs::Replay: the game writes no ghost file for a local map, measured), kept with your best on the server.
+//     Clicking a row of the in-race board races that player's best as a ghost (GET /replay, Ghosts::ReplayBall placed
+//     at the race's clock every frame); clicking it again takes it away.
 // The local best (main.as, Storage) is kept as before: it works offline too.
 
 const string kServer = "https://ballest-mk-hiscores.anythinggoes87654321.workers.dev";
@@ -23,9 +27,12 @@ class Board
     array<string> names;
     array<double> times;
     array<int> ranks;
+    array<string> ids;              // Steam IDs, by row
+    array<bool> hasReplay;
     int total = -1;                 // players on the board, -1 unknown
     int myRank = 0;
     double myTime = -1;
+    bool myReplay = false;
     double fetchedAt = -1000;
     bool loaded = false;
 }
@@ -51,6 +58,11 @@ bool hsTicketAsked = false;
 double hsTicketAt = 0;
 double hsRetryAt = 0;
 string hsShownKey = "";
+// the ghost raced against: whose, on which course, its replay, its ball
+string ghostTrack = "", ghostId = "", ghostName = "", ghostReplay = "";
+int ghostBall = 0;
+double ghostRetryAt = 0;
+array<string> shownIds;             // the Steam ID of each row on the board now (the clicked row's player)
 
 Board@ BoardOf(const string &in track)
 {
@@ -140,6 +152,8 @@ void Launch(Job@ j)
         j.id = Net::Get(kServer + "/top?track=" + UrlEncode(j.track) + "&n=" + kTopCount);
     else if (j.kind == "best")
         j.id = Net::Get(kServer + "/best?track=" + UrlEncode(j.track) + "&steamid=" + hsSteamId);
+    else if (j.kind == "replay")
+        j.id = Net::Get(kServer + "/replay?track=" + UrlEncode(j.track) + "&steamid=" + j.body);
     if (j.id == 0) j.id = -1;       // refused (rate limit): tried again later
 }
 
@@ -189,6 +203,17 @@ bool Finished(Job@ j)
         }
         return false;
     }
+    if (j.kind == "replay") {
+        if (status == 200 && j.track == ghostTrack && j.body == ghostId) {
+            ghostReplay = body;
+            ghostRetryAt = 0;
+            Log::Info("hiscores: ghost of " + ghostName + " on " + j.track + " loaded (" + body.length() + " bytes)");
+        } else if (status != 200) {
+            Log::Warn("hiscores: no ghost for " + ghostName + ": " + Json::String(body, "error", "HTTP " + status));
+            if (j.body == ghostId) ghostId = "";
+        }
+        return false;
+    }
     Board@ b = BoardOf(j.track);
     if (status != 200) {
         hsState = "online hiscores: " + Json::String(body, "error", "HTTP " + status);
@@ -198,6 +223,8 @@ bool Finished(Job@ j)
         b.names.resize(0);
         b.times.resize(0);
         b.ranks.resize(0);
+        b.ids.resize(0);
+        b.hasReplay.resize(0);
         int n = Json::Count(body, "entries");
         for (int i = 0; i < n; i++) {
             string p = "entries." + i + ".";
@@ -208,6 +235,8 @@ bool Finished(Job@ j)
             b.names.insertLast(name);
             b.times.insertLast(Json::Number(body, p + "timeMs") / 1000.0);
             b.ranks.insertLast(int(Json::Number(body, p + "rank")));
+            b.ids.insertLast(sid);
+            b.hasReplay.insertLast(Json::Bool(body, p + "hasReplay"));
         }
         b.total = int(Json::Number(body, "total"));
         b.loaded = true;
@@ -218,6 +247,7 @@ bool Finished(Job@ j)
         if (Json::Has(body, "entry.rank")) {
             b.myRank = int(Json::Number(body, "entry.rank"));
             b.myTime = Json::Number(body, "entry.timeMs") / 1000.0;
+            b.myReplay = Json::Bool(body, "entry.hasReplay");
         } else {
             b.myRank = 0;
             b.myTime = -1;
@@ -292,7 +322,19 @@ void HiscoresFinished(const string &in track, double t, const array<double> &in 
     for (uint i = 0; i < splits.length(); i++)
         s += (i > 0 ? "," : "") + int(splits[i] * 1000 + 0.5);
     s += "]";
-    string body = "{\"track\":" + Json::Quote(track) + ",\"timeMs\":" + int(t * 1000 + 0.5) + ",\"splits\":" + s + "}";
+    string body = "{\"track\":" + Json::Quote(track) + ",\"timeMs\":" + int(t * 1000 + 0.5) + ",\"splits\":" + s;
+    // Its replay too when it beats the online best known here (the server keeps it only with a new best): the host's
+    // recording of this run, the newest finished one on this track.
+    Board@ b = BoardOf(track);
+    if (b.myTime < 0 || t < b.myTime - 0.0005) {
+        string replay = "";
+        if (Runs::Count() > 0 && Runs::IsFinished(0) && Runs::TrackKey(0) == Race::TrackKey()) replay = Runs::Replay(0);
+        if (replay.length() > 0 && replay.length() < 900000 && Json::Has(replay, "locations"))
+            body += ",\"replay\":" + replay;
+        else
+            Log::Warn("hiscores: " + track + ": no replay of this run to send");
+    }
+    body += "}";
     Enqueue("submit", track, body);
     SavePending();
 }
@@ -307,11 +349,63 @@ void HiscoresUpdate(int course, const string &in track)
             b.fetchedAt = Host::Time();
             Enqueue("top", track);
         }
+        int row = Leaderboard::ExtraRowClicked();
+        if (row >= 0 && row < int(shownIds.length())) PickGhost(track, row, b);
         ShowBoard(b);
-    } else if (hsShownKey != "") {
-        Leaderboard::ClearSource();
-        hsShownKey = "";
+        RaceGhost(track);
+    } else {
+        if (hsShownKey != "") {
+            Leaderboard::ClearSource();
+            hsShownKey = "";
+        }
+        DropGhostBall();
     }
+}
+
+// A row clicked: that player's ghost (the same row again: none).
+void PickGhost(const string &in track, int row, Board@ b)
+{
+    string id = shownIds[row];
+    if (id == ghostId && track == ghostTrack) {
+        Log::Info("hiscores: ghost off");
+        ghostId = "";
+        ghostReplay = "";
+        DropGhostBall();
+        return;
+    }
+    int i = b.ids.find(id);
+    bool has = i >= 0 ? b.hasReplay[i] : (id == hsSteamId && b.myReplay);
+    if (!has) {
+        Log::Info("hiscores: no ghost saved for that run");
+        return;
+    }
+    DropGhostBall();
+    ghostTrack = track;
+    ghostId = id;
+    ghostReplay = "";
+    ghostName = i >= 0 ? b.names[i] : "you";
+    Enqueue("replay", track, id);
+    Log::Info("hiscores: racing the ghost of " + ghostName);
+}
+
+void DropGhostBall()
+{
+    if (ghostBall != 0) Draw::Remove(ghostBall);
+    ghostBall = 0;
+}
+
+// The ghost's ball where its run was at the race's clock (at the start before the race starts or after it ends).
+void RaceGhost(const string &in track)
+{
+    if (ghostReplay == "" || ghostTrack != track) return;
+    double t = Runs::Elapsed();
+    if (t < 0) t = 0;
+    if (ghostBall != 0 && Ghosts::PlaceReplayBall(ghostBall, t)) return;
+    ghostBall = 0;
+    if (Host::Time() < ghostRetryAt) return;        // a new map's ball, made again (at most once a second)
+    ghostRetryAt = Host::Time() + 1;
+    ghostBall = Ghosts::ReplayBall(ghostReplay);
+    if (ghostBall != 0) Ghosts::PlaceReplayBall(ghostBall, t);
 }
 
 void ShowBoard(Board@ b)
@@ -319,6 +413,7 @@ void ShowBoard(Board@ b)
     array<string> names = b.names;
     array<double> times = b.times;
     array<int> ranks = b.ranks;
+    shownIds = b.ids;
     int highlight = -1;
     for (uint i = 0; i < ranks.length(); i++)
         if (ranks[i] == b.myRank && b.myRank > 0 && times[i] == b.myTime) highlight = int(i);
@@ -326,12 +421,15 @@ void ShowBoard(Board@ b)
         names.insertLast(hsSteamId != "" && Steam::PersonaName(hsSteamId) != "" ? Steam::PersonaName(hsSteamId) : "you");
         times.insertLast(b.myTime);
         ranks.insertLast(b.myRank);
+        shownIds.insertLast(hsSteamId);
         highlight = int(names.length()) - 1;
     }
+    array<bool> ghosts;
+    for (uint i = 0; i < shownIds.length(); i++) ghosts.insertLast(ghostId != "" && shownIds[i] == ghostId && ghostTrack == b.track);
     string title = b.loaded ? "online" + (b.total > 0 ? "  " + b.total + (b.total == 1 ? " player" : " players") : "  no times yet")
                             : (hsState != "" ? "online: offline" : "online: loading");
     hsShownKey = Race::TrackKey();
-    Leaderboard::SetSource(hsShownKey, title, names, times, ranks, highlight);
+    Leaderboard::SetSource(hsShownKey, title, names, times, ranks, highlight, ghosts);
 }
 
 // The landing page: the courses' online boards fetched again when it opens.
@@ -354,6 +452,7 @@ string HiscoresLine(const string &in track)
 
 void HiscoresDisabled()
 {
+    DropGhostBall();
     Leaderboard::ClearSource();
     hsShownKey = "";
 }
