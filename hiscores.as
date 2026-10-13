@@ -66,7 +66,10 @@ double hsRetryAt = 0;
 string hsShownKey = "";
 // the ghost raced against: whose, on which course, its replay, its ball
 string ghostTrack = "", ghostId = "", ghostName = "";
-string watchTrack = "", watchId = "";       // a row tile clicked: that run in the game's replay mode, once downloaded
+string watchTrack = "", watchId = "";
+string ownTrack = "";                       // the course whose own-best replay is the game's PB ghost now
+bool localRecordsDone = false;
+double localRecordsRetry = 0;              // the game's own records of the cup's courses cleared and suppressed       // a row tile clicked: that run in the game's replay mode, once downloaded
 array<string> replayKeys;           // "<course>|<steam id>" of each replay downloaded this session
 array<string> replayTexts;          // its JSON
 
@@ -168,7 +171,8 @@ void Launch(Job@ j)
     else if (j.kind == "top")
         j.id = Net::Get(kServer + "/top?track=" + UrlEncode(j.track) + "&n=" + kTopCount);
     else if (j.kind == "best")
-        j.id = Net::Get(kServer + "/best?track=" + UrlEncode(j.track) + "&steamid=" + hsSteamId);
+        // rank=0: the entry without the rank work (the splits and own-best cache); the rank only for the cup page
+        j.id = Net::Get(kServer + "/best?track=" + UrlEncode(j.track) + "&steamid=" + hsSteamId + (j.body == "rank" ? "" : "&rank=0"));
     else if (j.kind == "replay")
         j.id = Net::Get(kServer + "/replay?track=" + UrlEncode(j.track) + "&steamid=" + j.body);
     if (j.id == 0) j.id = -1;       // refused (rate limit): tried again later
@@ -210,8 +214,10 @@ bool Finished(Job@ j)
         if (status == 200 && Json::Bool(body, "ok")) {
             Board@ b = BoardOf(j.track);
             b.myTime = Json::Number(body, "best") / 1000.0;
-            b.myRank = int(Json::Number(body, "rank"));
-            b.total = int(Json::Number(body, "total"));
+            // a slower run comes back with rank null: the last known rank stays
+            int rank = int(Json::Number(body, "rank", 0)), total = int(Json::Number(body, "total", 0));
+            if (rank > 0) b.myRank = rank;
+            if (total > 0) b.total = total;
             Log::Info("hiscores: " + j.track + " sent" + (Json::Bool(body, "improved") ? ", a new online best" : "") + ": #" + b.myRank + " of " + b.total +
                       (Json::Bool(body, "test") ? " (test board)" : ""));
             if (Json::Bool(body, "improved")) {
@@ -220,7 +226,7 @@ bool Finished(Job@ j)
                 for (int i = 0; i < n; i++) splits.insertLast(Json::Number(j.body, "splits." + i) / 1000.0);
                 CacheBest(j.track, Json::Number(j.body, "timeMs") / 1000.0, splits);
             }
-            Enqueue("top", j.track);
+            if (Json::Bool(body, "improved")) Enqueue("top", j.track);   // the board changed (else nothing to refetch)
         } else {
             Log::Warn("hiscores: " + j.track + " run not taken: " + Json::String(body, "error", "HTTP " + status));
         }
@@ -228,6 +234,8 @@ bool Finished(Job@ j)
     }
     if (j.kind == "replay") {
         if (status == 200) KeepReplay(j.track + "|" + j.body, body);
+        if (status == 200 && j.body == hsSteamId && j.track == ownTrack && CourseOnTrack() >= 0 && courses[CourseOnTrack()].name == j.track)
+            Leaderboard::SetOwnReplay(body);    // the player's online best as the game's PB ghost
         if (status == 200 && j.track == watchTrack && j.body == watchId) {
             Log::Info("hiscores: replay of " + j.body + " on " + j.track + " downloaded (" + body.length() + " bytes)");
             StartWatch();
@@ -268,12 +276,11 @@ bool Finished(Job@ j)
         b.total = int(Json::Number(body, "total"));
         b.loaded = true;
         b.fetchedAt = Host::Time();
-        if (hsSteamId == "") hsSteamId = Steam::OwnId();
-        if (hsSteamId != "") Enqueue("best", j.track);
     } else if (j.kind == "best") {
         array<double> splits;
-        if (Json::Has(body, "entry.rank")) {
-            b.myRank = int(Json::Number(body, "entry.rank"));
+        if (Json::Has(body, "entry.timeMs")) {
+            int rank = int(Json::Number(body, "entry.rank", 0));
+            if (rank > 0) b.myRank = rank;      // (rank=0 asked: no rank given, the last known stays)
             b.myTime = Json::Number(body, "entry.timeMs") / 1000.0;
             b.myReplay = Json::Bool(body, "entry.hasReplay");
             int n = Json::Count(body, "entry.splits");
@@ -284,7 +291,8 @@ bool Finished(Job@ j)
             b.myTime = -1;
             CacheBest(j.track, -1, splits);
         }
-        b.total = int(Json::Number(body, "total"));
+        int total = int(Json::Number(body, "total", 0));
+        if (total > 0) b.total = total;
     }
     hsState = "";
     return false;
@@ -384,6 +392,13 @@ void HiscoresFinished(const string &in track, double t, const array<double> &in 
         Log::Info("hiscores: " + track + " " + FormatTime(t) + " not sent: " + why);
         return;
     }
+    // only a run that beats the online best is sent (the server keeps each player's best only; a slower run would
+    // change nothing there and costs requests)
+    Board@ best = BoardOf(track);
+    if (best.myTime > 0 && t >= best.myTime - 0.0005) {
+        Log::Info("hiscores: " + track + " " + FormatTime(t) + " not sent: not faster than your online best " + FormatTime(best.myTime));
+        return;
+    }
     string s = "[";
     for (uint i = 0; i < splits.length(); i++)
         s += (i > 0 ? "," : "") + int(splits[i] * 1000 + 0.5);
@@ -406,18 +421,45 @@ void HiscoresFinished(const string &in track, double t, const array<double> &in 
 }
 
 // Every frame (main.as Update): requests, and the in-race board for the course on track (-1: none).
+// The server is the only record: the game's own records of the cup's courses (best time, medal, splits, PB ghost)
+// are cleared once, and the game saves none for them (Race::ClearLocalRecord / SuppressLocalRecords).
+void LocalRecords()
+{
+    if (localRecordsDone || Host::Time() < localRecordsRetry) return;
+    localRecordsRetry = Host::Time() + 10;      // (the game's profile isn't there in the first moments: tried again)
+    localRecordsDone = true;
+    for (uint i = 0; i < courses.length(); i++) {
+        string level = courses[i].name;
+        if (!Race::SuppressLocalRecords(level)) localRecordsDone = false;
+        if (Storage::Get("hiscores:localcleared:" + level, "") != "1" && Race::ClearLocalRecord(level))
+            Storage::Set("hiscores:localcleared:" + level, "1");
+    }
+}
+
 void HiscoresUpdate(int course, const string &in track)
 {
     PumpJobs();
+    LocalRecords();
     if (course >= 0) {
         Board@ b = BoardOf(track);
-        if (track != splitsTrack) {             // a course raced: its online best fetched now (the cache serves till then)
+        // the player's own online best as the game's PB ghost (its replay, once known to exist)
+        if (ownTrack != track && b.myReplay && hsSteamId != "") {
+            ownTrack = track;
+            int k = replayKeys.find(track + "|" + hsSteamId);
+            if (k >= 0) Leaderboard::SetOwnReplay(replayTexts[k]);
+            else Enqueue("replay", track, hsSteamId);
+        }
+        if (track != splitsTrack) {             // a course raced: its online best and board fetched now (the cache serves till then)
             splitsTrack = track;
             if (hsSteamId == "") hsSteamId = Steam::OwnId();
             if (hsSteamId != "") Enqueue("best", track);
+            b.fetchedAt = Host::Time();
+            Enqueue("top", track);
         }
         FeedSplits(track);
-        if (Host::Time() - b.fetchedAt > 30) {
+        // requests are kept few (free-tier budget): the board again at most every 3 minutes while on a course, and
+        // after each finish (the submit's answer asks for it)
+        if (Host::Time() - b.fetchedAt > 180) {
             b.fetchedAt = Host::Time();
             Enqueue("top", track);
         }
@@ -433,6 +475,7 @@ void HiscoresUpdate(int course, const string &in track)
             hsShownKey = "";
         }
         ghostId = "";                           // (the host gives the board back and the game's ghost goes with the map)
+        ownTrack = "";
         if (splitsShown != "<none>") {
             Race::ClearSplitReference();
             splitsShown = "<none>";
@@ -534,7 +577,12 @@ void ShowBoard(Board@ b)
 // The landing page: the courses' online boards fetched again when it opens.
 void HiscoresPageOpened(const array<string> &in tracks)
 {
-    for (uint i = 0; i < tracks.length(); i++) Enqueue("top", tracks[i]);
+    // each course's board, and the player's rank for its line ("you #x/N"), once per opening
+    if (hsSteamId == "") hsSteamId = Steam::OwnId();
+    for (uint i = 0; i < tracks.length(); i++) {
+        Enqueue("top", tracks[i]);
+        if (hsSteamId != "") Enqueue("best", tracks[i], "rank");
+    }
 }
 
 // One line per course for the landing page: the record and your place.
