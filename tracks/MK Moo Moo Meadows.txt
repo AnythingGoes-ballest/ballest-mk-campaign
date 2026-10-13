@@ -1,0 +1,2 @@
+# overlay for the map 'MK Moo Moo Meadows'
+mesh mk_moo_moo_meadows.glb at=-3828.2,-2218.8,-5099.5

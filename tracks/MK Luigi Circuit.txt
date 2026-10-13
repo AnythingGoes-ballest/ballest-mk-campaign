@@ -1,0 +1,2 @@
+# overlay for the map 'MK Luigi Circuit'
+mesh mk_luigi_circuit.glb at=3310.9,4345.2,665.0

@@ -1,0 +1,2 @@
+# overlay for the map 'MK Mushroom Gorge'
+mesh mk_mushroom_gorge.glb at=-3328.0,1296.6,842.9

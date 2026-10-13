@@ -1,0 +1,2 @@
+# decals for the map 'MK Toads Factory' (not solid)
+mesh mk_toads_factory_decals.glb at=-9863.4,4177.7,1000.0

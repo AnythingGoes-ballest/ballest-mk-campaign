@@ -1,0 +1,2 @@
+# overlay for the map 'MK Bowsers Castle'
+mesh mk_bowsers_castle.glb at=1046.4,-2683.6,1000.0

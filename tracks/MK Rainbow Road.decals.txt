@@ -1,0 +1,2 @@
+# decals for the map 'MK Rainbow Road' (not solid)
+mesh mk_rainbow_road_decals.glb at=1201.4,21381.5,-126188.1

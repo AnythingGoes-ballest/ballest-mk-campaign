@@ -1,0 +1,2 @@
+# overlay for the map 'MK Toads Factory'
+mesh mk_toads_factory.glb at=-9863.4,4177.7,1000.0

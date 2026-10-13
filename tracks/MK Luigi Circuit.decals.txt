@@ -1,0 +1,2 @@
+# decals for the map 'MK Luigi Circuit' (not solid)
+mesh mk_luigi_circuit_decals.glb at=3310.9,4345.2,665.0

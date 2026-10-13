@@ -1,0 +1,2 @@
+# decals for the map 'MK Mushroom Gorge' (not solid)
+mesh mk_mushroom_gorge_decals.glb at=-3328.0,1296.6,842.9

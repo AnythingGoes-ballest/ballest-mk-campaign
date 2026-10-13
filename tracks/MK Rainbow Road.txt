@@ -1,0 +1,2 @@
+# overlay for the map 'MK Rainbow Road'
+mesh mk_rainbow_road.glb at=1201.4,21381.5,-126188.1

@@ -24,6 +24,7 @@ array<Course@> courses;
 UI::FooterButton@ menuButton;
 UI::Window@ page;
 array<UI::Text@> bestTexts;
+array<UI::Text@> onlineTexts;       // hiscores.as: the course's online record and your place
 array<UI::Button@> raceButtons;
 array<int> raceLooks;                // what each race button shows now: 0 normal, 1 hovered, 2 pressed
 UI::Button@ backButton;
@@ -137,13 +138,18 @@ void BuildPage()
         picture.SetGapBefore(14);
         UI::Text@ name = page.AddText(c.title, 38);
         name.SetGapBefore(24);
-        name.SetWidth(620);
+        name.SetWidth(560);
         name.SetColor(1, 1, 1, 1);
         UI::Text@ best = page.AddText("", 34);
-        best.SetWidth(300);
+        best.SetWidth(240);
         best.SetAlign(2);
         best.SetColor(1, 1, 1, 1);
         bestTexts.insertLast(best);
+        UI::Text@ online = page.AddText("", 18);
+        online.SetGapBefore(16);
+        online.SetWidth(320);
+        online.SetColor(1, 0.6f, 0.01f, 1);
+        onlineTexts.insertLast(online);
         UI::Button@ race = page.AddButton("race");
         race.SetGapBefore(30);
         race.SetBackground(1, 1, 1, 1);
@@ -173,6 +179,7 @@ void RefreshPage()
     for (uint i = 0; i < courses.length(); i++) {
         Course@ c = courses[i];
         bestTexts[i].text = c.best < 0 ? "no time yet" : FormatTime(c.best);
+        onlineTexts[i].text = HiscoresLine(c.name);
         if (c.best < 0)
             complete = false;
         else
@@ -219,6 +226,9 @@ void OpenPage()
     RefreshPage();
     PlacePage();
     statusText.text = "";
+    array<string> tracks;
+    for (uint i = 0; i < courses.length(); i++) tracks.insertLast(courses[i].name);
+    HiscoresPageOpened(tracks);
     page.visible = true;
     pageOpen = true;
 }
@@ -239,7 +249,7 @@ void StartCourse(int i)
     for (uint j = 0; j < courses.length(); j++)
         files.insertLast(FileOf(courses[j]));
     if (!Tracks::OpenLocalList(files, i)) {
-        statusText.text = Tracks::OpenState();
+        CampaignStatus(Tracks::OpenState());
         Log::Warn("couldn't open " + openingFile + ": " + Tracks::OpenState());
         return;
     }
@@ -247,7 +257,6 @@ void StartCourse(int i)
     fromCampaign = true;
     raceCourse = i;
     sinceOpen = 0;
-    ClosePage();
 }
 
 // --- during a race: best time (the game shows splits) ------------------------------------------------------------------
@@ -316,6 +325,7 @@ void TrackRace(float dt, int ci)
         } else {
             Log::Info(c.title + ": finished in " + FormatTime(t) + ", best " + FormatTime(c.best));
         }
+        HiscoresFinished(c.name, t, runSplits);
     }
 }
 
@@ -328,34 +338,16 @@ void Main()
     AddCourse("MK Mushroom Gorge", "Mushroom Gorge", "mushroom_gorge.png");
     AddCourse("MK Toads Factory", "Toad's Factory", "toads_factory.png");
     Load();
-    @menuButton = UI::AddMenuButton("mushroom cup");
-    BuildPage();
+    CampaignStart();                // campaigns.as: the cup in the game's track selection (no menu button)
     BuildHud();
+    HiscoresStart();
 }
 
 void Update(float dt)
 {
+    OverlayUpdate(dt);
     sinceOpen += dt;
-    if (menuButton.Clicked())
-        OpenPage();
-    bool menu = UI::MainMenuShown() && !Race::OnTrack() && !Editor::IsOpen();
-    if (pageOpen) {
-        if (!menu) {
-            ClosePage();
-        } else {
-            if (backButton.Clicked() || Input::Pressed(Input::Key::Escape))
-                ClosePage();
-            UpdateRaceButtons();
-            for (uint i = 0; i < raceButtons.length(); i++)
-                if (raceButtons[i].Clicked())
-                    StartCourse(int(i));
-        }
-    } else if (menu && fromCampaign && sinceOpen > 3) {
-        // Back from one of the cup's races: its landing page again.
-        fromCampaign = false;
-        raceCourse = -1;
-        OpenPage();
-    }
+    CampaignUpdate(dt);             // campaigns.as: the cup's screen, a chosen course, back from a race
     int ci = CourseOnTrack();
     hud.visible = ci >= 0;
     if (ci >= 0) {
@@ -366,10 +358,13 @@ void Update(float dt)
     } else {
         runId = -2;
     }
+    HiscoresUpdate(ci, ci >= 0 ? courses[ci].name : "");
 }
 
 void OnDisabled()
 {
+    OverlayDisabled();
+    HiscoresDisabled();
     if (page !is null)
         page.visible = false;
     if (hud !is null)
