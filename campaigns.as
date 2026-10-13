@@ -11,6 +11,10 @@ void CampaignStart()
 {
     cupId = Campaigns::Register("Mushroom Cup", "images/mushroom_cup.png",
                                 "Luigi Circuit, Moo Moo Meadows, Mushroom Gorge and Toad's Factory: race each course for your best time.");
+    // Mario Kart's Mushroom Cup colours: mushroom red cards with cream lettering and a gold rim; gold with dark
+    // lettering under the mouse.
+    Campaigns::SetTheme(cupId, "card=#E60012 hover=#FFC20E pressed=#E0A400 text=#FFF3D6 body=#FFE2B8 "
+                               "hovertext=#3A1600 accent=#FFC20E number=#FFC20E");
     for (uint i = 0; i < courses.length(); i++)
         Campaigns::AddCourse(cupId, courses[i].title, "images/" + courses[i].image);
     CampaignRefresh();
