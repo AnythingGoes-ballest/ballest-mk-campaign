@@ -139,9 +139,17 @@ void OverlayUpdate(float dt)
     since += dt;
     if (since < 0.5) return;
     since = 0;
-    string name = Editor::MapName();
-    if (name == "") name = Race::TrackName();
-    if (name != "" && name != shown) {
+    // Only the editor (open or test-playing) or one of the player's own local maps raced as a race: Editor::MapName
+    // keeps the last editor map after the editor is left (measured: it put Luigi Circuit over an official track).
+    string name = "";
+    if (Editor::IsOpen() || Editor::IsTesting())
+        name = Editor::MapName();
+    else if (Race::OnTrack() && Race::TrackKey().findFirst("custom:local:") == 0)
+        name = Race::TrackName();
+    if (name == "" && shown != "") {               // anywhere else: nothing of ours is drawn
+        Show("");
+        Editor::ShowAll();
+    } else if (name != "" && name != shown) {
         Resettle();
         Show(name);
     } else if (shape != 0 && !Draw::Show(shape, true) && (Editor::IsOpen() || Editor::IsTesting() || Race::OnTrack())) {
