@@ -1,7 +1,7 @@
 // The course models (part of MK Campaign; private, never publish): when a map whose name has a model in tracks/ is open, its original textured,
 // smooth model (exported by ballest-map-builder/scripts/export_overlay.py into the map's own coordinates) is drawn
-// over it; the map's pieces underneath stay for the collision. tracks/<map name>.txt is the model text
-// ("mesh <file.glb> at=x,y,z": the bottom centre of the model at that point of the map).
+// over it. tracks/<map name>.txt is the model text ("mesh <file.glb> at=x,y,z": the bottom centre of the model at that
+// point of the map); tracks/<map name>.collide.txt the hidden collision skin the ball rolls on (see Show).
 //
 // The pieces themselves (collision-only, in the invisible material M_Empty) are not drawn at all once the model is up
 // (Editor::HideByMaterial, host 0.26.0): even invisible, 15k-38k of them cost a lot of frame time (measured overview:
@@ -38,29 +38,44 @@ float bounceWait = 0;
 string shown = "";
 int shape = 0;
 int decals = 0;         // tracks/<map name>.decals.txt: dash panels' arrows, road marks, drawn over the road, not solid
+int skin = 0;           // tracks/<map name>.collide.txt: the collision skin, solid and hidden (see Show)
 bool collides = false;
 float since = 0;
 bool testing = false;
 int settling = 0;       // hiding passes still to make: > 0 after the pieces may have changed
 int lastHidden = -1;
 
+// The model that is solid: the collision skin, or the course model itself when a course has no skin.
+int Solid()
+{
+    return skin != 0 ? skin : shape;
+}
+
 void Show(const string &in name)
 {
     if (shape != 0) Draw::Remove(shape);
     if (decals != 0) Draw::Remove(decals);
+    if (skin != 0) Draw::Remove(skin);
     shape = 0;
     decals = 0;
+    skin = 0;
     shown = name;
     LoadCaps(name);
     if (name == "") return;
     shape = Draw::Model(Plugins::Folder() + "tracks/" + name + ".txt");
     if (shape == 0) return;
-    // the model itself is the driving surface (host 0.26.0 Draw::Collide): the ball rolls on exactly what is drawn,
-    // one continuous surface. Only allowed on the player's own unpublished map; the maps carry no collision pieces.
-    collides = Draw::Collide(shape);
+    // The driving surface (host 0.26.0 Draw::Collide) is the collision skin (ballest-map-builder's build_collide.py):
+    // the course model's own triangles, unchanged, plus ramps over small ledges and fillets over creases, so it rolls
+    // smoothly and can't have a hole the model hasn't. It is made solid, then hidden: the course model is what shows,
+    // and isn't solid. A course without a skin rolls on the model itself. Only allowed on the player's own unpublished
+    // map; the maps carry no collision pieces.
+    if (Plugins::ReadFile("tracks/" + name + ".collide.txt") != "")
+        skin = Draw::Model(Plugins::Folder() + "tracks/" + name + ".collide.txt");
+    collides = Draw::Collide(Solid());
+    if (skin != 0) Draw::Show(skin, false);
     if (Plugins::ReadFile("tracks/" + name + ".decals.txt") != "")
         decals = Draw::Model(Plugins::Folder() + "tracks/" + name + ".decals.txt");
-    Log::Info("overlay for '" + name + "' drawn" + (collides ? ", solid" : ", NOT solid"));
+    Log::Info("overlay for '" + name + "' drawn" + (collides ? ", solid" : ", NOT solid") + (skin != 0 ? " (collision skin)" : ""));
 }
 
 void LoadCaps(const string &in name)
@@ -157,7 +172,7 @@ void OverlayUpdate(float dt)
         Resettle();
         Show(shown);
     }
-    if (shape != 0 && !collides) collides = Draw::Collide(shape);     // e.g. refused while a level was still loading
+    if (shape != 0 && !collides) collides = Draw::Collide(Solid());   // e.g. refused while a level was still loading
     bool nowTesting = Editor::IsTesting();
     if (nowTesting != testing) {
         testing = nowTesting;
@@ -177,8 +192,10 @@ void OverlayDisabled()
 {
     if (shape != 0) Draw::Remove(shape);
     if (decals != 0) Draw::Remove(decals);
+    if (skin != 0) Draw::Remove(skin);
     shape = 0;
     decals = 0;
+    skin = 0;
     shown = "";
     caps.resize(0);
     Editor::ShowAll();

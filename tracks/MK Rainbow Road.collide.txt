@@ -1,0 +1,2 @@
+# collision skin for the map 'MK Rainbow Road' (solid, hidden)
+mesh mk_rainbow_road_collide.glb at=1201.5,21381.5,-126188.1

@@ -1,0 +1,2 @@
+# collision skin for the map 'MK Toads Factory' (solid, hidden)
+mesh mk_toads_factory_collide.glb at=-9863.4,4177.7,1000.0

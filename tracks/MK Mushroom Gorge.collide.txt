@@ -1,0 +1,2 @@
+# collision skin for the map 'MK Mushroom Gorge' (solid, hidden)
+mesh mk_mushroom_gorge_collide.glb at=-3328.0,1296.6,842.9
