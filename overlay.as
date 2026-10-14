@@ -55,6 +55,24 @@ int Solid()
     return skin != 0 ? skin : shape;
 }
 
+// A course's files in tracks/ and maps/ are named by its map name in lower case, spaces as "_" ("MK Luigi Circuit":
+// mk_luigi_circuit): the registry takes only plain file names.
+string Slug(const string &in name)
+{
+    string s = "";
+    for (uint i = 0; i < name.length(); i++) {
+        uint8 c = name[i];
+        if (c >= 65 && c <= 90) c += 32;                                   // A-Z to a-z
+        if (c == 32) c = 95;                                               // space to _
+        if ((c >= 97 && c <= 122) || (c >= 48 && c <= 57) || c == 95 || c == 45) {
+            string one = " ";
+            one[0] = c;
+            s += one;
+        }
+    }
+    return s;
+}
+
 void Show(const string &in name)
 {
     if (shape != 0) Draw::Remove(shape);
@@ -66,19 +84,19 @@ void Show(const string &in name)
     shown = name;
     LoadCaps(name);
     if (name == "") return;
-    shape = Draw::Model(Plugins::Folder() + "tracks/" + name + ".txt");
+    shape = Draw::Model(Plugins::Folder() + "tracks/" + Slug(name) + ".txt");
     if (shape == 0) return;
     // The driving surface (host 0.26.0 Draw::Collide) is the collision skin (ballest-map-builder's build_collide.py):
     // the course model's own triangles, unchanged, plus ramps over small ledges and fillets over creases, so it rolls
     // smoothly and can't have a hole the model hasn't. It is made solid, then hidden: the course model is what shows,
     // and isn't solid. A course without a skin rolls on the model itself. Only allowed on the player's own unpublished
     // map; the maps carry no collision pieces.
-    if (Plugins::ReadFile("tracks/" + name + ".collide.txt") != "")
-        skin = Draw::Model(Plugins::Folder() + "tracks/" + name + ".collide.txt");
+    if (Plugins::ReadFile("tracks/" + Slug(name) + ".collide.txt") != "")
+        skin = Draw::Model(Plugins::Folder() + "tracks/" + Slug(name) + ".collide.txt");
     collides = Draw::Collide(Solid());
     if (skin != 0) Draw::Show(skin, false);
-    if (Plugins::ReadFile("tracks/" + name + ".decals.txt") != "")
-        decals = Draw::Model(Plugins::Folder() + "tracks/" + name + ".decals.txt");
+    if (Plugins::ReadFile("tracks/" + Slug(name) + ".decals.txt") != "")
+        decals = Draw::Model(Plugins::Folder() + "tracks/" + Slug(name) + ".decals.txt");
     Log::Info("overlay for '" + name + "' drawn" + (collides ? ", solid" : ", NOT solid") + (skin != 0 ? " (collision skin)" : ""));
 }
 
@@ -86,7 +104,7 @@ void LoadCaps(const string &in name)
 {
     caps.resize(0);
     if (name == "") return;
-    array<string>@ lines = Plugins::ReadFile("tracks/" + name + ".bounce").split("\n");
+    array<string>@ lines = Plugins::ReadFile("tracks/" + Slug(name) + ".bounce").split("\n");
     for (uint i = 0; i < lines.length(); i++) {
         array<string>@ w = lines[i].split(" ");
         if (w.length() != 13 || w[0] != "cap") continue;

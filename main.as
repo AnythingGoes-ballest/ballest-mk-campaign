@@ -344,8 +344,8 @@ void Main()
     HiscoresStart();
 }
 
-// The four maps ship with the plugin (maps/): put into the player's own maps folder, where the game races local maps
-// from, when they're missing or older there (Tracks::InstallLocalMap keeps a copy the player edited since). Tried
+// The four maps ship with the plugin (maps/<slug>.balledit, see Slug): put into the player's own maps folder, where the game races local maps
+// from, when they're missing or older there (Tracks::InstallLocalMapAs keeps a copy the player edited since). Tried
 // again until the game's level manager is up.
 bool mapsInstalled = false;
 float mapsRetry = 0;
@@ -357,7 +357,7 @@ void InstallMaps(float dt)
     mapsRetry = 2;
     bool all = true;
     for (uint i = 0; i < courses.length(); i++) {
-        int r = Tracks::InstallLocalMap("maps/" + FileOf(courses[i]));
+        int r = Tracks::InstallLocalMapAs("maps/" + Slug(courses[i].name) + ".balledit", FileOf(courses[i]));
         if (r < 0) all = false;
         else if (r == 1) Log::Info(courses[i].title + ": map installed into your maps folder");
     }
