@@ -1,1146 +1,1055 @@
 {
-	"worldSettings":
-	{
-		"directionalLight":
-		{
-			"timeOfDay": 12.000000953674316,
-			"brightness": 2
-		},
-		"metaData": [
-			{
-				"title": "Foo",
-				"descriptor": "Bar"
-			}
-		],
-		"levelData":
-		{
-			"systemLevelName": "Map_LevelEditorMain",
-			"userLevelName": "MK Luigi Circuit_AnythingGoes",
-			"levelDifficulty": "Beginner",
-			"levelDescription": "",
-			"uploaderOnlyLevelPreviewImagePath": "",
-			"bValidated": false,
-			"mapTags":
-			{
-				"gameplayTags": []
-			},
-			"medalTimesByIndex": [
-				0
-			],
-			"createdAt": "2026.10.06-17.49.47",
-			"creatorName": "AnythingGoes",
-			"levelDisplayName": "MK Luigi Circuit",
-			"levelPublishedFileId": -1
-		},
-		"skylightIntensity": 1,
-		"directionalLightAngle": -151.91397094726562
-	},
-	"items": [
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/MapItems/PlayerStart/MP_PlayerStart.MP_PlayerStart_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.22495101694994737,
-					"w": 0.97437007341830073
-				},
-				"translation":
-				{
-					"x": -1852.185919,
-					"y": -18805.583473999999,
-					"z": 1143.7956409999999
-				},
-				"scale3D":
-				{
-					"x": 1,
-					"y": 1,
-					"z": 0.050000000000000003
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Game/Maps/_GENERATED/PC/SM_Start_Fixed.SM_Start_Fixed",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/BP_Checkpoint.BP_Checkpoint_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0.15906395095232023,
-					"y": 0.68898378755050405,
-					"z": 0.15906395095232026,
-					"w": 0.68898378755050416
-				},
-				"translation":
-				{
-					"x": -1486,
-					"y": -18634,
-					"z": 1154
-				},
-				"scale3D":
-				{
-					"x": 21.233908,
-					"y": 21.233908,
-					"z": 1
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Stadium/Arena/MI_GoalYellow.MI_GoalYellow'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Game/Maps/_GENERATED/PC/SM_GoalRing.SM_GoalRing",
-					"materialAssetPaths": [
-						"/Game/Art/Stadium/Arena/MI_GoalYellow.MI_GoalYellow"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.22495101694994737,
-					"w": 0.97437007341830073
-				},
-				"translation":
-				{
-					"x": 4795,
-					"y": -19403,
-					"z": 1082
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 20.899515000000001,
-					"z": 7.3181900000000004
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.61482700302095239,
-					"w": 0.78866200387509089
-				},
-				"translation":
-				{
-					"x": 16198,
-					"y": -10961,
-					"z": 1351
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 24.136189000000002,
-					"z": 7.77508
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.7004557939427466,
-					"w": 0.71369579004785832
-				},
-				"translation":
-				{
-					"x": 14650,
-					"y": 1259,
-					"z": 1427
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 25.901647000000001,
-					"z": 19.531997228062821
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.97770544613394095,
-					"w": 0.20998109581586566
-				},
-				"translation":
-				{
-					"x": 10966,
-					"y": 16424,
-					"z": 1666
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 27.884618,
-					"z": 14.657272000000001
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.82963228559100788,
-					"w": 0.55831019219161704
-				},
-				"translation":
-				{
-					"x": -3853,
-					"y": 10298,
-					"z": 1894
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 23.106338000000001,
-					"z": 10.97317
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.83575874029219066,
-					"w": 0.54909682937093218
-				},
-				"translation":
-				{
-					"x": -8786,
-					"y": -233,
-					"z": 1507
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 25.901647000000001,
-					"z": 7.4173439999999999
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.97437007341830073,
-					"w": 0.22495101694994707
-				},
-				"translation":
-				{
-					"x": -13432,
-					"y": -6806,
-					"z": 948
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 25.901647000000001,
-					"z": 7.4428979999999996
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.76717095746973718,
-					"w": 0.64144268802050186
-				},
-				"translation":
-				{
-					"x": -21545,
-					"y": -16605,
-					"z": 963
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 19.281179000000002,
-					"z": 9.8104320000000005
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.11977205044889649,
-					"w": 0.99280141817549117
-				},
-				"translation":
-				{
-					"x": -16801,
-					"y": -23959,
-					"z": 960
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 19.134056999999999,
-					"z": 10.524381594872228
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.22495101694994737,
-					"w": 0.97437007341830073
-				},
-				"translation":
-				{
-					"x": -5394,
-					"y": -24127,
-					"z": 950
-				},
-				"scale3D":
-				{
-					"x": 0.39577800000000002,
-					"y": 20.899515000000001,
-					"z": 7.5444880000000003
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 0
-						},
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass'",
-							"materialIndex": 1
-						},
-						{
-							"material": "/Script/Engine.MaterialInstanceConstant'/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed'",
-							"materialIndex": 2
-						}
-					],
-					"meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed",
-						"/Game/Art/Materials/Masters/M_DiscCheckpointGlass.M_DiscCheckpointGlass",
-						"/Game/Art/Materials/Instances/Ball/MI_BallRed.MI_BallRed"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.35624901943659099,
-					"w": 0.93439105097944264
-				},
-				"translation":
-				{
-					"x": -19893.139256999999,
-					"y": -23972.135343999998,
-					"z": 1668.528008
-				},
-				"scale3D":
-				{
-					"x": 5.5800280000000004,
-					"y": 7.1776260000000001,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.18235398964183777,
-					"w": 0.98323294414991236
-				},
-				"translation":
-				{
-					"x": -17820.865811,
-					"y": -25238.13897,
-					"z": 1674.5072809999999
-				},
-				"scale3D":
-				{
-					"x": 5.6196619999999999,
-					"y": 7.407311,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.010350004525975169,
-					"w": 0.99994643726867316
-				},
-				"translation":
-				{
-					"x": -15511.824696,
-					"y": -25644.070383999999,
-					"z": 1678.5399170000001
-				},
-				"scale3D":
-				{
-					"x": 5.2761709999999997,
-					"y": 7.6573469999999997,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": 0,
-					"y": -0,
-					"z": 0.17242202960374434,
-					"w": 0.98502316912208987
-				},
-				"translation":
-				{
-					"x": -13758.398181,
-					"y": -25317.031233000002,
-					"z": 1679.936379
-				},
-				"scale3D":
-				{
-					"x": 6.235233,
-					"y": 7.8231200000000003,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.5296600212658501,
-					"w": 0.84821003405563355
-				},
-				"translation":
-				{
-					"x": -21366.935248000002,
-					"y": -21993.356295000001,
-					"z": 1661.8664630000001
-				},
-				"scale3D":
-				{
-					"x": 5.2340340000000003,
-					"y": 7.0973350000000002,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.68315416983488009,
-					"w": 0.73027418154910551
-				},
-				"translation":
-				{
-					"x": -22021.969045999998,
-					"y": -19615.029127999998,
-					"z": 1661.487181
-				},
-				"scale3D":
-				{
-					"x": 5.5911090000000003,
-					"y": 7.1821900000000003,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.80337008543841315,
-					"w": 0.59548006332930814
-				},
-				"translation":
-				{
-					"x": -21747.109686,
-					"y": -17202.237037999999,
-					"z": 1661.487181
-				},
-				"scale3D":
-				{
-					"x": 5.6285170000000004,
-					"y": 7.415559,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.90298541606597704,
-					"w": 0.42967119797835429
-				},
-				"translation":
-				{
-					"x": -20648.261124000001,
-					"y": -15131.251875,
-					"z": 1661.487181
-				},
-				"scale3D":
-				{
-					"x": 5.2813330000000001,
-					"y": 7.668304,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		},
-		{
-			"actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
-			"itemTransform":
-			{
-				"rotation":
-				{
-					"x": -0,
-					"y": 0,
-					"z": -0.96082809771189881,
-					"w": 0.27714502818440362
-				},
-				"translation":
-				{
-					"x": -19317.110623,
-					"y": -13955.071991999999,
-					"z": 1661.192929
-				},
-				"scale3D":
-				{
-					"x": 6.1296999999999997,
-					"y": 7.8682049999999997,
-					"z": 2
-				}
-			},
-			"meshComponents": [
-				{
-					"meshComponentTag": "SKGMapEditor",
-					"materials": [
-						{
-							"material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
-							"materialIndex": 0
-						}
-					],
-					"meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
-					"materialAssetPaths": [
-						"/Game/Art/Materials/Masters/M_Empty.M_Empty"
-					]
-				}
-			],
-			"bIsBaseItem": false,
-			"boolProperties": [],
-			"floatProperties": [],
-			"intProperties": [],
-			"textProperties": [],
-			"nameProperties": [],
-			"stringProperties": []
-		}
-	],
-	"editorState":
-	{
-		"version": 1,
-		"groups": [],
-		"pivots": [],
-		"bHasCamera": true,
-		"cameraLocation":
-		{
-			"x": 15273.341911964499,
-			"y": -979.23253231841045,
-			"z": 5031.4477165574299
-		},
-		"cameraRotation":
-		{
-			"pitch": 344.94999726116657,
-			"yaw": 250.64999268949032,
-			"roll": 0
-		}
-	}
+  "worldSettings": {
+    "directionalLight": {
+      "timeOfDay": 12.000000953674316,
+      "brightness": 2
+    },
+    "metaData": [
+      {
+        "title": "Foo",
+        "descriptor": "Bar"
+      }
+    ],
+    "levelData": {
+      "systemLevelName": "Map_LevelEditorMain",
+      "userLevelName": "MK Luigi Circuit_AnythingGoes",
+      "levelDifficulty": "Beginner",
+      "levelDescription": "",
+      "uploaderOnlyLevelPreviewImagePath": "",
+      "bValidated": false,
+      "mapTags": {
+        "gameplayTags": []
+      },
+      "medalTimesByIndex": [
+        0
+      ],
+      "createdAt": "2026.10.06-17.49.47",
+      "creatorName": "AnythingGoes",
+      "levelDisplayName": "MK Luigi Circuit",
+      "levelPublishedFileId": -1
+    },
+    "skylightIntensity": 1,
+    "directionalLightAngle": -151.91397094726562
+  },
+  "items": [
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/MapItems/PlayerStart/MP_PlayerStart.MP_PlayerStart_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.22495101694994737,
+          "w": 0.9743700734183007
+        },
+        "translation": {
+          "x": -1852.185919,
+          "y": -18805.583474,
+          "z": 1143.795641
+        },
+        "scale3D": {
+          "x": 1,
+          "y": 1,
+          "z": 0.05
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Game/Maps/_GENERATED/PC/SM_Start_Fixed.SM_Start_Fixed",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/BP_Checkpoint.BP_Checkpoint_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": -0.15906395095232023,
+          "y": 0.688983787550504,
+          "z": 0.15906395095232026,
+          "w": 0.6889837875505042
+        },
+        "translation": {
+          "x": -1486,
+          "y": -18634,
+          "z": 1154
+        },
+        "scale3D": {
+          "x": 21.233908,
+          "y": 21.233908,
+          "z": 1
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Game/Maps/_GENERATED/PC/SM_GoalRing.SM_GoalRing",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.22495101694994737,
+          "w": 0.9743700734183007
+        },
+        "translation": {
+          "x": 4795,
+          "y": -19403,
+          "z": 1082
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 20.899515,
+          "z": 7.31819
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.6148270030209524,
+          "w": 0.7886620038750909
+        },
+        "translation": {
+          "x": 16198,
+          "y": -10961,
+          "z": 1351
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 24.136189,
+          "z": 7.77508
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.7004557939427466,
+          "w": 0.7136957900478583
+        },
+        "translation": {
+          "x": 14650,
+          "y": 1259,
+          "z": 1427
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 25.901647,
+          "z": 19.53199722806282
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.977705446133941,
+          "w": 0.20998109581586566
+        },
+        "translation": {
+          "x": 10966,
+          "y": 16424,
+          "z": 1666
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 27.884618,
+          "z": 14.657272
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.8296322855910079,
+          "w": 0.558310192191617
+        },
+        "translation": {
+          "x": -3853,
+          "y": 10298,
+          "z": 1894
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 23.106338,
+          "z": 10.97317
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.8357587402921907,
+          "w": 0.5490968293709322
+        },
+        "translation": {
+          "x": -8786,
+          "y": -233,
+          "z": 1507
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 25.901647,
+          "z": 7.417344
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.9743700734183007,
+          "w": 0.22495101694994707
+        },
+        "translation": {
+          "x": -13432,
+          "y": -6806,
+          "z": 948
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 25.901647,
+          "z": 7.442898
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.7671709574697372,
+          "w": 0.6414426880205019
+        },
+        "translation": {
+          "x": -21545,
+          "y": -16605,
+          "z": 963
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 19.281179,
+          "z": 9.810432
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.1197720504488965,
+          "w": 0.9928014181754912
+        },
+        "translation": {
+          "x": -16801,
+          "y": -23959,
+          "z": 960
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 19.134057,
+          "z": 10.524381594872228
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Gameplay/MapTriggers/MP_ActualCheckpoint_Strip.MP_ActualCheckpoint_Strip_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.22495101694994737,
+          "w": 0.9743700734183007
+        },
+        "translation": {
+          "x": -5394,
+          "y": -24127,
+          "z": 950
+        },
+        "scale3D": {
+          "x": 0.395778,
+          "y": 20.899515,
+          "z": 7.544488
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 1
+            },
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 2
+            }
+          ],
+          "meshAssetPath": "/Game/Core/Gameplay/MapTriggers/SM_ActualCheckpoint_Strip.SM_ActualCheckpoint_Strip",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty",
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.356249019436591,
+          "w": 0.9343910509794426
+        },
+        "translation": {
+          "x": -19893.139257,
+          "y": -23972.135344,
+          "z": 1668.528008
+        },
+        "scale3D": {
+          "x": 5.580028,
+          "y": 7.177626,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.18235398964183777,
+          "w": 0.9832329441499124
+        },
+        "translation": {
+          "x": -17820.865811,
+          "y": -25238.13897,
+          "z": 1674.507281
+        },
+        "scale3D": {
+          "x": 5.619662,
+          "y": 7.407311,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.010350004525975169,
+          "w": 0.9999464372686732
+        },
+        "translation": {
+          "x": -15511.824696,
+          "y": -25644.070384,
+          "z": 1678.539917
+        },
+        "scale3D": {
+          "x": 5.276171,
+          "y": 7.657347,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0.17242202960374434,
+          "w": 0.9850231691220899
+        },
+        "translation": {
+          "x": -13758.398181,
+          "y": -25317.031233,
+          "z": 1679.936379
+        },
+        "scale3D": {
+          "x": 6.235233,
+          "y": 7.82312,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.5296600212658501,
+          "w": 0.8482100340556336
+        },
+        "translation": {
+          "x": -21366.935248,
+          "y": -21993.356295,
+          "z": 1661.866463
+        },
+        "scale3D": {
+          "x": 5.234034,
+          "y": 7.097335,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.6831541698348801,
+          "w": 0.7302741815491055
+        },
+        "translation": {
+          "x": -22021.969046,
+          "y": -19615.029128,
+          "z": 1661.487181
+        },
+        "scale3D": {
+          "x": 5.591109,
+          "y": 7.18219,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.8033700854384132,
+          "w": 0.5954800633293081
+        },
+        "translation": {
+          "x": -21747.109686,
+          "y": -17202.237038,
+          "z": 1661.487181
+        },
+        "scale3D": {
+          "x": 5.628517,
+          "y": 7.415559,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.902985416065977,
+          "w": 0.4296711979783543
+        },
+        "translation": {
+          "x": -20648.261124,
+          "y": -15131.251875,
+          "z": 1661.487181
+        },
+        "scale3D": {
+          "x": 5.281333,
+          "y": 7.668304,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    },
+    {
+      "actorToSpawn": "/Script/Engine.BlueprintGeneratedClass'/Game/Core/Physics/Actors/Boosters/MP_BoostVolume.MP_BoostVolume_C'",
+      "itemTransform": {
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": -0.9608280977118988,
+          "w": 0.2771450281844036
+        },
+        "translation": {
+          "x": -19317.110623,
+          "y": -13955.071992,
+          "z": 1661.192929
+        },
+        "scale3D": {
+          "x": 6.1297,
+          "y": 7.868205,
+          "z": 2
+        }
+      },
+      "meshComponents": [
+        {
+          "meshComponentTag": "SKGMapEditor",
+          "materials": [
+            {
+              "material": "/Script/Engine.Material'/Game/Art/Materials/Masters/M_Empty.M_Empty'",
+              "materialIndex": 0
+            }
+          ],
+          "meshAssetPath": "/Engine/EngineMeshes/Cube.Cube",
+          "materialAssetPaths": [
+            "/Game/Art/Materials/Masters/M_Empty.M_Empty"
+          ]
+        }
+      ],
+      "bIsBaseItem": false,
+      "boolProperties": [],
+      "floatProperties": [],
+      "intProperties": [],
+      "textProperties": [],
+      "nameProperties": [],
+      "stringProperties": []
+    }
+  ],
+  "editorState": {
+    "version": 1,
+    "groups": [],
+    "pivots": [],
+    "bHasCamera": true,
+    "cameraLocation": {
+      "x": 15273.341911964499,
+      "y": -979.2325323184104,
+      "z": 5031.44771655743
+    },
+    "cameraRotation": {
+      "pitch": 344.9499972611666,
+      "yaw": 250.64999268949032,
+      "roll": 0
+    }
+  }
 }
