@@ -16,6 +16,10 @@
 // actors of the race's own level, which Editor::HideByMaterial also covers.
 
 const string kCollisionMaterial = "/Game/Art/Materials/Masters/M_Empty";
+// The checkpoint strips' own glow (the strip blueprint's materials, which a map can't override): hidden while racing on
+// these maps, so the checkpoints are invisible there; still drawn while editing, so they can be found and moved.
+// Only the drawing goes: the triggers stay.
+const array<string> kCheckpointGlow = {"/Game/Art/Materials/VFX/M_CheckpointPreGlow", "/Game/Art/Materials/Masters/M_CheckpointLight"};
 
 // Mushroom bounce: tracks/<map name>.bounce lists the course's trampolines (written by ballest-map-builder's
 // mechanics.py): per cap its centre, radius and the height of its top surface in 8 rings out from the centre (map cm).
@@ -181,6 +185,8 @@ void OverlayUpdate(float dt)
     if (shape == 0 || settling <= 0) return;
     settling--;
     int hidden = Editor::HideByMaterial(kCollisionMaterial);
+    if (Editor::IsTesting() || !Editor::IsOpen())
+        for (uint i = 0; i < kCheckpointGlow.length(); i++) Editor::HideByMaterial(kCheckpointGlow[i]);
     if (hidden > 0 && hidden == lastHidden) {
         settling = 0;
         Log::Info(hidden + " collision pieces not drawn");
