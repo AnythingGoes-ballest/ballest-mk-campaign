@@ -1,9 +1,9 @@
 [meta]
 name = "MK Mushroom Cup"
-version = "0.2.2"
+version = "0.2.3"
 author = "AnythingGoes"
 description = "the Mushroom Cup as a custom campaign in the game's track selection (its own screen with its four courses), each course raced as a normal race with local best times and splits, and the original course models drawn as the solid track (tracks/: models, decals, mushroom bounce data)."
-min_host = "0.26.1"
+min_host = "0.26.2"
 
 [net]
 # the hiscores server (repo ballest-mk-hiscores); the host lets Net:: reach only these hosts
