@@ -422,7 +422,7 @@ void HiscoresFinished(const string &in track, double t, const array<double> &in 
 
 // Every frame (main.as Update): requests, and the in-race board for the course on track (-1: none).
 // The server is the only record: the game's own records of the cup's courses (best time, medal, splits, PB ghost)
-// are cleared once, and the game saves none for them (Race::ClearLocalRecord / SuppressLocalRecords).
+// are cleared (asked on every load: the host clears when the map is raced), and the game saves none for them (Race::ClearLocalRecord / SuppressLocalRecords).
 void LocalRecords()
 {
     if (localRecordsDone || Host::Time() < localRecordsRetry) return;
@@ -431,8 +431,7 @@ void LocalRecords()
     for (uint i = 0; i < courses.length(); i++) {
         string level = courses[i].name;
         if (!Race::SuppressLocalRecords(level)) localRecordsDone = false;
-        if (Storage::Get("hiscores:localcleared:" + level, "") != "1" && Race::ClearLocalRecord(level))
-            Storage::Set("hiscores:localcleared:" + level, "1");
+        Race::ClearLocalRecord(level);     // every load: the host queues it until the map is raced (cheap, no flag)
     }
 }
 
