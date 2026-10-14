@@ -21,7 +21,6 @@ class Course
 }
 
 array<Course@> courses;
-UI::FooterButton@ menuButton;
 UI::Window@ page;
 array<UI::Text@> bestTexts;
 array<UI::Text@> onlineTexts;       // hiscores.as: the course's online record and your place
