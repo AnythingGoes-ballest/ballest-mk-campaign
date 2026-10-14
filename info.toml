@@ -1,6 +1,6 @@
 [meta]
 name = "MK Mushroom Cup"
-version = "0.2.0"
+version = "0.2.1"
 author = "AnythingGoes"
 description = "the Mushroom Cup as a custom campaign in the game's track selection (its own screen with its four courses), each course raced as a normal race with local best times and splits, and the original course models drawn as the solid track (tracks/: models, decals, mushroom bounce data)."
 min_host = "0.26.0"
@@ -11,3 +11,4 @@ domains = ["ballest-mk-hiscores.anythinggoes87654321.workers.dev"]
 
 [script]
 files = ["main.as", "overlay.as", "hiscores.as", "campaigns.as"]
+assets = ["maps/*", "tracks/*", "images/*"]
